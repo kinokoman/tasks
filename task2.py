@@ -19,12 +19,11 @@ with open("./words.tsv") as rf:
 
 answers=[]
 for x in range(len(texts)):
-	answer=0
-	for y in range(len(words)):
-		for z in range(len(texts[0])):
-			if words[y][0]==texts[x][z:z+len(words[y][0])]:
-				answer+=int(words[y][1])
-	answers.append(answer)
+    answer=0
+    for y in range(len(words)):
+        answer+=int(words[y][1]) * len(re.findall('(?='+words[y][0]+')', texts[x]))
+        print x,y,answer
+    answers.append(answer)
 	
 finish = time.time()
 time = finish - start
