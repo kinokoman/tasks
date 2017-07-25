@@ -29,7 +29,7 @@ for x in range(len(texts)):
 finish = time.time()
 time = finish - start
 
-f = open('answer1.txt', 'w')
+f = open('answer2.txt', 'w')
 for say in answers:
 	f.write(str(say)+ "\n")
 
