@@ -48,7 +48,7 @@ finish = time.time()
 time = finish - start
 
 #各テキストの点数と実行時間をanswerファイルに書き込む
-f = open('answer2_2.txt', 'w')
+f = open('answer2.txt', 'w')
 for answer in answers:
 	f.write(str(answer)+ "\n")
 f.write(str(time))
