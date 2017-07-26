@@ -1,5 +1,7 @@
 import time
 import csv
+import re
+from multiprocessing import Pool
 
 start = time.time()
 
@@ -17,20 +19,25 @@ with open("./words.tsv") as rf:
     for row in reader:
         words.append(row)
 
-answers=[]
-for x in range(len(texts)):
-    answer=0
-    for y in range(len(words)):
-        answer+=int(words[y][1]) * len(re.findall('(?='+words[y][0]+')', texts[x]))
-        print x,y,answer
-    answers.append(answer)
-	
-finish = time.time()
-time = finish - start
+def function(x):
+	answer=0
+	for y in range(len(words)):
+		answer+=int(words[y][1]) * len(re.findall('(?='+words[y][0]+')', texts[x]))
+	return answer
 
-f = open('answer2.txt', 'w')
-for say in answers:
-	f.write(str(say)+ "\n")
+def multi(n):
+    p = Pool(10)
+    result = p.map(function, range(n))
+    return result
 
-f.write(str(time))
-f.close()
+def main(hoge):
+    answers = multi(100)
+    finish = time.time()
+    zikan = finish - hoge
+    f = open('answer2_2.txt', 'w')
+    for say in answers:
+		f.write(str(say)+ "\n")
+    f.write(str(zikan))
+    f.close()
+
+main(start)
